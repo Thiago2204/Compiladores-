@@ -5,4 +5,4 @@
 - [Autômato finito.]()
 - [Analisador léxico.](https://github.com/Thiago2204/Compiladores-/tree/main/Analisador%20léxico)
 - [Analisador sintático.]()
-- [Analisador semântico.]()
+- [Analisador semântico.](https://github.com/Thiago2204/Compiladores-/tree/main/Analisador%20semântico)
