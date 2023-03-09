@@ -10,3 +10,4 @@
 - - Deadline: 05/MAI/2023
 - [Analisador semântico.](https://github.com/Thiago2204/Compiladores-/tree/main/Analisador%20semântico)
 - - Deadline: 26/MAI/2023
+
