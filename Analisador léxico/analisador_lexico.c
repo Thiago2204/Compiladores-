@@ -70,7 +70,13 @@ int scanner(char** palavra)
         case 't': goto q66;
         case 'b': goto q61;
         case 'i': goto q50;
-            
+        case 'e': goto q56;
+        case 'p': goto q39;
+        case 's': goto q77;
+        case 'v': goto q83;
+        case 'w': goto q88;
+        case 'd': goto q94;
+
         default:
             goto poco;
         }
@@ -126,6 +132,88 @@ int scanner(char** palavra)
         c == (*palavra)++; if (c == ' ') goto q55; else goto poco;
     q55:
         return (_IF_);
+
+    // else
+    q56:
+        c == (*palavra)++; if (c == 'l') goto q57; else goto poco;
+    q57:
+        c == (*palavra)++; if (c == 's') goto q58; else goto poco;
+    q58:
+        c == (*palavra)++; if (c == 'e') goto q59; else goto poco;
+    q59:
+        c == (*palavra)++; if (c == ' ') goto q60; else goto poco;
+    q60:
+        return (_ELSE_);
+
+    // print - proc
+    q39:
+        c == (*palavra)++; if (c == 'r') goto q40; else goto poco;
+    q40:
+        c == (*palavra)++; if (c == 'i') goto q41; else if (c == 'o') goto q45; else goto poco;
+    q41:
+        c == (*palavra)++; if (c == 'n') goto q42; else goto poco;
+    q42:
+        c == (*palavra)++; if (c == 't') goto q43; else goto poco;
+    q43:
+        c == (*palavra)++; if (c == ' ') goto q44; else goto poco;
+    q44:
+        return (_PRINT_);
+    q45:
+        c == (*palavra)++; if (c == 'c') goto q46; else goto poco;
+    q46:
+        c == (*palavra)++; if (c == ' ') goto q47; else goto poco;
+    q47: 
+        return(_PROC_);
+    
+    // semic
+    q77:
+        c == (*palavra)++; if (c == 'e') goto q78; else goto poco;
+    q78:
+        c == (*palavra)++; if (c == 'm') goto q79; else goto poco;
+    q79:
+        c == (*palavra)++; if (c == 'i') goto q80; else goto poco;
+    q80:
+        c == (*palavra)++; if (c == 'c') goto q81; else goto poco;
+    q81:
+        c == (*palavra)++; if (c == ' ') goto q82; else goto poco;
+    q82:
+        return (_SEMIC_);
+
+    // void
+    q83:
+        c == (*palavra)++; if (c == 'o') goto q84; else goto poco;
+    q84:
+        c == (*palavra)++; if (c == 'i') goto q85; else goto poco;
+    q85:
+        c == (*palavra)++; if (c == 'd') goto q86; else goto poco;
+    q86:
+        c == (*palavra)++; if (c == ' ') goto q87; else goto poco;
+    q87:
+        return (_VOID_);
+
+    // while
+    q88: 
+        c == (*palavra)++; if (c == 'h') goto q89; else goto poco;
+    q89:
+        c == (*palavra)++; if (c == 'i') goto q90; else goto poco;
+    q90:
+        c == (*palavra)++; if (c == 'l') goto q91; else goto poco;
+    q91:
+        c == (*palavra)++; if (c == 'e') goto q92; else goto poco;
+    q92:
+        c == (*palavra)++; if (c == ' ') goto q93; else goto poco;
+    q93:
+        return (_WHILE_);
+
+    // do
+    q94:
+        c == (*palavra)++; if (c == 'o') goto q95; else goto poco;
+    q95:
+        c == (*palavra)++; if (c == ' ') goto q96; else goto poco;
+    q96:
+        return (_DO_);
+
+
 
     poco:
         return (_ERROR_);
