@@ -8,6 +8,7 @@
 // Palavras reservadas --------------------------------------------------------
 #define _FALSE_ 0
 #define _TRUE_  1
+#define _ERROR_ 2 
 #define _BOOL_  3
 #define _INT_   4
 #define _VOID_  5
@@ -49,16 +50,85 @@
 
 // Globais ====================================================================
 int     QNTDE_TOKENS = 1;
+char**  PTR_PALAVRA;
 
 // Protótipo das funções ======================================================
 int*    append_token(int* arr_ptr, int new_token);
-int     scanner(char palavra[]);
+int     scanner(char** palavra);
 void    token_output(char file_name[], int token[]);
 
 // Implementação ==============================================================
-int scanner(char palavra[])
+int scanner(char** palavra)
 {
-   return (-1);
+    char c;
+
+    q0: // somente neste estado haverá um switch case devido as diversas possibilidades
+        c == **palavra;
+        switch (c)
+        {
+        case 'f': goto q71;
+        case 't': goto q66;
+        case 'b': goto q61;
+        case 'i': goto q50;
+            
+        default:
+            goto poco;
+        }
+        
+    // false
+    q71:
+        c == (*palavra)++; if (c == 'a') goto q72; else goto poco;
+    q72:
+        c == (*palavra)++; if (c == 'l') goto q73; else goto poco;
+    q73:
+        c == (*palavra)++; if (c == 's') goto q74; else goto poco;
+    q74:
+        c == (*palavra)++; if (c == 'e') goto q75; else goto poco;
+    q75:
+        c == (*palavra)++; if (c == ' ') goto q76; else goto poco;
+    q76:
+        return (_FALSE_);
+    
+    // true
+    q66:
+        c == (*palavra)++; if (c == 'r') goto q67; else goto poco;
+    q67:
+        c == (*palavra)++; if (c == 'u') goto q68; else goto poco;
+    q68:
+        c == (*palavra)++; if (c == 'e') goto q69; else goto poco;
+    q69:
+        c == (*palavra)++; if (c == ' ') goto q70; else goto poco;
+    q70:
+        return (_TRUE_);
+    
+    // bool
+    q61:
+        c == (*palavra)++; if (c == 'o') goto q62; else goto poco;
+    q62:
+        c == (*palavra)++; if (c == 'o') goto q63; else goto poco;
+    q63:
+        c == (*palavra)++; if (c == 'l') goto q64; else goto poco;
+    q64:
+        c == (*palavra)++; if (c == ' ') goto q65; else goto poco;
+    q65:
+        return (_BOOL_);
+
+    // int - if
+    q50:
+        c == (*palavra)++; if (c == 'n') goto q51; else if (c == 'f') goto q54; else goto poco;
+    q51:
+        c == (*palavra)++; if (c == 't') goto q52; else goto poco;
+    q52:
+        c == (*palavra)++; if (c == ' ') goto q53; else goto poco;
+    q53:
+        return (_INT_);
+    q54:
+        c == (*palavra)++; if (c == ' ') goto q55; else goto poco;
+    q55:
+        return (_IF_);
+
+    poco:
+        return (_ERROR_);
 }
 
 int* append_token(int* arr_ptr, int new_token) { QNTDE_TOKENS++; int* new_ptr = (int*) realloc(arr_ptr, QNTDE_TOKENS * sizeof(int)) ; new_ptr[QNTDE_TOKENS - 1] = new_token; return new_ptr; }
@@ -75,9 +145,8 @@ void token_output(char file_name[], int tokens[])
 int main(int argc, char * argv[])
 {
     int *tokens = (int*) malloc(QNTDE_TOKENS * sizeof(int));
-    char *str = "lksajdklajdaslkj";
-    // é preciso definir um ponteiro para controlar o índice da string, pois a cada espaço um token será retornado !!!
-    // a logica aq está quase feita.
+    char *str = "isso aq será a string de todo o código fonte yeeeey";
+    
     tokens = append_token(tokens, scanner(str));
     token_output("tokens.txt", tokens);
 
