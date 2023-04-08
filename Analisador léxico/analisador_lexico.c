@@ -1,6 +1,8 @@
 // ANALISADOR LÉXICO - ETAPA 2 ================================================
 
 // Inclusões ==================================================================
+#include <stdio.h>
+#include <stdlib.h>
 
 // Definições =================================================================
 // Palavras reservadas --------------------------------------------------------
@@ -42,23 +44,42 @@
 
 // Outros ---------------------------------------------------------------------
 #define _ID_  30
-#define _NUM_ 31
+#define _NUM_ 31 
 #define _COM_ 32
 
-// Protótipo das funções =======================================================
-int scanner(char palavra[]);
+// Globais ====================================================================
+int     QNTDE_TOKENS = 1;
 
+// Protótipo das funções ======================================================
+int*    append_token(int* arr_ptr, int new_token);
+int     scanner(char palavra[]);
+void    token_output(char file_name[], int token[]);
 
-// Implementação ===============================================================
+// Implementação ==============================================================
 int scanner(char palavra[])
 {
    return (-1);
 }
 
+int* append_token(int* arr_ptr, int new_token) { QNTDE_TOKENS++; int* new_ptr = (int*) realloc(arr_ptr, QNTDE_TOKENS * sizeof(int)) ; new_ptr[QNTDE_TOKENS - 1] = new_token; return new_ptr; }
+
+void token_output(char file_name[], int tokens[])
+{
+    FILE * token_output_ptr = fopen(file_name, "w");
+    for (int i = 0; i < QNTDE_TOKENS; i++)
+        fprintf(token_output_ptr, "%d\n", tokens[i]);
+    fclose(token_output_ptr); 
+}
 
 // main =======================================================================
 int main(int argc, char * argv[])
 {
+    int *tokens = (int*) malloc(QNTDE_TOKENS * sizeof(int));
+    char *str = "lksajdklajdaslkj";
+    // é preciso definir um ponteiro para controlar o índice da string, pois a cada espaço um token será retornado !!!
+    // a logica aq está quase feita.
+    tokens = append_token(tokens, scanner(str));
+    token_output("tokens.txt", tokens);
+
     return 0;
 }
-
