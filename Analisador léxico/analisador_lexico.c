@@ -77,6 +77,13 @@ int scanner(char** palavra)
         case 'w': goto q88;
         case 'd': goto q94;
 
+        case '(': goto q31;
+        case ')': goto q27;
+        case ',': goto q28;
+        case ';': goto q29;
+        case '{': goto q30;
+        case '}': goto q32; 
+
         default:
             goto poco;
         }
@@ -213,6 +220,31 @@ int scanner(char** palavra)
     q96:
         return (_DO_);
 
+    // Símbolos
+    q31:
+        c == (*palavra)++; if (c == ' ') goto q33; else goto poco;
+    q33:
+        return (_PARENTESE1_);
+    q27:
+        c == (*palavra)++; if (c == ' ') goto q34; else goto poco;
+    q34:
+        return (_PARENTESE2_);
+    q28:
+        c == (*palavra)++; if (c == ' ') goto q35; else goto poco;
+    q35:
+        return (_VIRGULA_);
+    q29:
+        c == (*palavra)++; if (c == ' ') goto q36; else goto poco;
+    q36:
+        return (_PVIRGULA_);
+    q30:
+        c == (*palavra)++; if (c == ' ') goto q37; else goto poco;
+    q37:
+        return (_CHAVE1_);
+    q32:
+        c == (*palavra)++; if (c == ' ') goto q38; else goto poco;
+    q38:
+        return (_CHAVE2_);
 
 
     poco:
