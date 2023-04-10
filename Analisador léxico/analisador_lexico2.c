@@ -84,13 +84,13 @@ int scanner(char* palavra)
         case '{': goto q30;
         case '}': goto q32;
 
-	case '/': goto q1;
-	case '+': goto q7;
+		case '/': goto q1;
+		case '+': goto q7;
         case '-': goto q9;
         case '*': goto q11;
         case '<': goto q13;
         case '>': goto q19;
-	case '=': goto q23;
+		case '=': goto q23;
 
         case '0': goto q97;
         case '1': goto q97;
