@@ -49,13 +49,15 @@
 #define _COM_ 32
 
 // Protótipo das funções ======================================================
-int     scanner(char* palavra);
+int     scanner(char* palavra, int token[]);
 void    token_output(char file_name[], int token[]);
 
 // Implementação ==============================================================
-int scanner(char* palavra)
+int scanner(char* palavra, int token[])
 {
     char c;
+    int attr_buffer = 1;
+    char* attr = (char*) malloc (sizeof(char) * attr_buffer);
 
     q0: // somente neste estado haverá um switch case devido as diversas possibilidades
         c = *palavra;
@@ -385,8 +387,17 @@ int scanner(char* palavra)
     // Numero
     q97:
         *(palavra++); c = *palavra; 
-        if (c >= '0' && c <= '9') goto q97; else if (c == ' ') goto q98; else goto poco;
+        if (c >= '0' && c <= '9')
+        {
+            attr[attr_buffer-1] = c;
+            attr = (char*) realloc (attr, sizeof(char) * (attr_buffer++));
+            goto q97;
+        }  
+        else if (c == ' ') goto q98; else goto poco;
+
     q98:
+        token[0] = _NUM_;
+        token[1] = atoi(attr);
 		return (_NUM_);
 
     // Identificador
@@ -412,6 +423,7 @@ void token_output(char file_name[], int token[])
 int main(int argc, char * argv[])
 {
     char *str = "/* ** _x int */ ";
+    int token[2];
     
     // Apaga o conteúdo anterior do arquivo de saída
     FILE* apagador = fopen(argv[1], "w");  // O argumento é o nome do arquivo de saída
