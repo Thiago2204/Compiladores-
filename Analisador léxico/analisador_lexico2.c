@@ -49,11 +49,11 @@
 #define _COM_ 32
 
 // Protótipo das funções ======================================================
-int     scanner(char* palavra, int token[]);
+int     scanner(char* palavra, char** atributo);
 void    token_output(char file_name[], int token[]);
 
 // Implementação ==============================================================
-int scanner(char* palavra, int token[])
+int scanner(char* palavra, char** atributo)
 {
     char c;
     int attr_buffer = 1;
@@ -396,15 +396,21 @@ int scanner(char* palavra, int token[])
         else if (c == ' ') goto q98; else goto poco;
 
     q98:
-        token[0] = _NUM_;
-        token[1] = atoi(attr);
+        *atributo = attr;
 		return (_NUM_);
 
     // Identificador
     q48:
         *(palavra++); c = *palavra; 
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) goto q48; else if (c == ' ') goto q49; else goto poco;
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+        { 
+            attr[attr_buffer] = c;
+            attr = (char*) realloc (attr, sizeof(char) * (attr_buffer++));
+            goto q48;
+        }
+        else if (c == ' ') goto q49; else goto poco;
     q49:
+        *atributo = attr;
         return (_ID_);
 
     // Poco
@@ -423,11 +429,18 @@ void token_output(char file_name[], int token[])
 int main(int argc, char * argv[])
 {
     char *str = "/* ** _x int */ ";
-    int token[2];
+    int token;
+    char* attr;
     
     // Apaga o conteúdo anterior do arquivo de saída
-    FILE* apagador = fopen(argv[1], "w");  // O argumento é o nome do arquivo de saída
-    close(apagador);
+    FILE* output = fopen(argv[1], "wa");  // O argumento é o nome do arquivo de saída
 
+    /* isso vai dentro do laço */
+    token = scanner(str, attr);
+    fprintf(output, "<%d, %s>", token, attr);
+    /* ----------------------- */
+
+
+    close(output);
     return 0;
 }
