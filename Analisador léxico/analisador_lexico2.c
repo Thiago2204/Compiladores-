@@ -2,6 +2,7 @@
 
 // Inclusões ==================================================================
 #include <stdio.h>
+#include <conio.h>
 #include <stdlib.h>
 
 // Definições =================================================================
@@ -460,19 +461,36 @@ void token_output(char file_name[], int token[])
 
 // main =======================================================================
 int main(int argc, char* argv[]) {
-    char *line = "if _kma 123 /*ifas**/ > ";
-    FILE* output = fopen("sim.txt", "wa");
+    FILE* output = fopen(argv[2], "wa");
+    FILE* input = fopen(argv[1], "r");
+    char* line = (char*) malloc (sizeof(char) * 100);  // O número máximo do tamanho de linha foi definido na mão por eu não saber como detectar o tamanho da maior linha que há no código, assim como essa aqui hehe
+    char* attr;
     int token;
-    char *attr;
-    
-    while (line[0] != '\0' && token != _ERROR_)
+
+    // ESSA É UMA SOLUÇÃO QUE PEGA LINHA A LINHA PARA FAZER A LEITURA DO CÓDIGO FONTE
+    // UMA OUTRA POSSIBILIDADE SERIA LER CARACTERE POR CARACTERE
+    if (input == NULL) return 1; 
+
+    while(!feof(input))
     {
-        attr = "NONE";
-        token = scanner(&line, &attr);
-        printf("<%d,%s>\n", token, attr);
-        fprintf(output, "<%d,%s>\n", token, attr);
+        if (fgets(line, 100, input) != NULL)
+        {
+            while (line[0] != '\0' && token != _ERROR_)
+            {
+                if (*line != '\n') 
+                {
+                    attr = "NONE";
+                    token = scanner(&line, &attr);
+                    fprintf(output, "<%d,%s>\n", token, attr);
+                    /* Para a próxima entrega informar onde está o erro */
+                    if (token == _ERROR_) { printf("Erro léxico !!"); return 1; }
+                }
+                else line++;
+            }
+        }
     }
 
     fclose(output);
+    fclose(input);
     return 0;
 }
