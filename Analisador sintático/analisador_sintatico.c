@@ -15,6 +15,24 @@ int    lookahead;
 int     match(int t, char palavra[], int *pos);
 void    erro (void);
 
+/* ##DO CÓDIGO DO BOB##
+char lookahead;   /* Excepcionalmente variavel global
+##o Bob chama a lookahead na main, sendo "lookahead= palavra[pos];" ##
+
+int  match(char t, char palavra[], int *pos){
+	if (lookahead == t){
+		lookahead= palavra[++(*pos)];
+		return(1);
+	}
+	return(0);  
+}
+
+void trataErro(){
+	printf("\n\nERRO DE SINTAXE\n\n");
+	/* IMPORTANTE:  Faca um tratamento melhor !!!
+}
+*/
+
 //  Protótipos Regras da Gramática ==================================
 int programa(char palavra[], int *pos);
 int bloco (char palavra[], int *pos);
