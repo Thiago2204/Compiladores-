@@ -1,6 +1,7 @@
 /* 
     Analisador Sintático
     *** Feito por *** (quem for abrindo o código, põe o nome e TIA):
+    Amanda Laís Xavier Fontes - 31949436
     Ryan Marco Andrade dos Santos - 42080223
 */
 
