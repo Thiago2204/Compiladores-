@@ -1,13 +1,43 @@
 (quem puder checa direito se o que eu fiz tá batendo depois por favor, eu fiz com muito sono + dor de cabeça forte)
 
-* !! Os símbolos terminais correspondentes aos tokens estão destacados.
+* !! Os símbolos terminais correspondentes aos tokens estão `destacados`.
+* Não tirei os "<"">" pra legibilidade disso ficar melhor, mas se alguém quiser passar pra outro jeito tá ok
 
 # Sintaxe
 
-# Declarações
+1. <programa> → <declaração de funções> <programa> `semic` <identificador> <bloco> | `semic` <identificador> <bloco>
+2. <bloco> →
 
+# Declarações
+  
+3. <parte declarações de variáveis> → 
+4. <declaração de variáveis> → `int` <lista de identificadores> `;` | `bool` <lista de identificadores> `;`
+5. <lista de identificadores> → 
+6. <declarações de funções> → <declara função> <declarações de funções> | ε
+7. <declara função> → 
+8. <parâmetro formal> → `int` <identificador> | `bool` <identificador>
+  
 # Comandos
+  
+9. <comando composto> → 
+10. <comando> → 
+11. <atribuição> → <variável> `=` <expressão>
+12. <chamada de procedimento> → 
+13. <parâmetro> → <identificador> | <número> | <bool> | ε
+14. <comando condicional> → `if` `(` <expressão> `)` `{` <comando composto> `}` `else` `{` <comando composto> `}` | `if` `(` <expressão> `)` `{` <comando composto> `}`
+15. <comando repetitivo> → 
 
 # Expressões
+  
+16. <expressão> → 
+17. <relação> → 
+18. <expressão simples> → 
+19. <termo> → 
+20. <fator> → 
+21. <variável> → <identificador>
 
 # Números e Identificadores
+  
+22. <bool> → `true` | `false`
+23. <número> → `num` /(token obtido pelo analisador léxico)
+24. <identificador> → `id` /(token obtido pelo analisador léxico)
