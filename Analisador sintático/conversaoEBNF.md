@@ -2,7 +2,7 @@
 
 * !! Os símbolos terminais correspondentes aos tokens estão `destacados`.
 * Não tirei os "<"">" pra legibilidade disso ficar melhor, mas se alguém quiser passar pra outro jeito tá ok
-* Quem for mexer no código (e se não tirar as setinhas), coloca um "\" antes do "<" ou então o markdown vai bugar
+* Quem for mexer no código (e se não tirar as setinhas), coloca um "\\" antes do "<" ou então o markdown vai bugar
 
 # Sintaxe
 
