@@ -12,14 +12,14 @@
 
 //  Protótipos das Funções e Declarações ============================
 int    lookahead;
-int     match(int t, char palavra[], int *pos);
+int     match(int t, int palavra[], int *pos);
 void    erro (void);
 
 /* ##DO CÓDIGO DO BOB##
-char lookahead;   /* Excepcionalmente variavel global
+int lookahead;   /* Excepcionalmente variavel global
 ##o Bob chama a lookahead na main, sendo "lookahead= palavra[pos];" ##
 
-int  match(char t, char palavra[], int *pos){
+int  match(int t, char palavra[], int *pos){
 	if (lookahead == t){
 		lookahead= palavra[++(*pos)];
 		return(1);
@@ -34,54 +34,49 @@ void trataErro(){
 */
 
 //  Protótipos Regras da Gramática ==================================
-int programa(char palavra[], int *pos);
-int bloco (char palavra[], int *pos);
+int programa(int palavra[], int *pos);
+int bloco (int palavra[], int *pos);
 
 //  Declarações
-int d_variavel_i(char palavra[], int *pos);
-int d_variavel  (char palavra[], int *pos);
-int lista_id    (char palavra[], int *pos);
-int decl_funcoes(char palavra[], int *pos);
-int declara_func(char palavra[], int *pos);
-int para_formal (char palavra[], int *pos);
+int d_variavel_i(int palavra[], int *pos);
+int d_variavel  (int palavra[], int *pos);
+int lista_id    (int palavra[], int *pos);
+int decl_funcoes(int palavra[], int *pos);
+int declara_func(int palavra[], int *pos);
+int para_formal (int palavra[], int *pos);
 
 //  Comandos
-int comando_comp(char palavra[], int *pos);
-int comando     (char palavra[], int *pos);
-int atribuicao  (char palavra[], int *pos);
-int chamada_proc(char palavra[], int *pos);
-int parametro   (char palavra[], int *pos);
-int comando_cond(char palavra[], int *pos);
-int comando_repe(char palavra[], int *pos);
+int comando_comp(int palavra[], int *pos);
+int comando     (int palavra[], int *pos);
+int atribuicao  (int palavra[], int *pos);
+int chamada_proc(int palavra[], int *pos);
+int parametro   (int palavra[], int *pos);
+int comando_cond(int palavra[], int *pos);
+int comando_repe(int palavra[], int *pos);
 
 //  Expressões
-int expressao   (char palavra[], int *pos);
-int relacao     (char palavra[], int *pos);
-int expre_sim   (char palavra[], int *pos);
-int termo       (char palavra[], int *pos);
-int fator       (char palavra[], int *pos);
-int variavel    (char palavra[], int *pos);
+int expressao   (int palavra[], int *pos);
+int relacao     (int palavra[], int *pos);
+int expre_sim   (int palavra[], int *pos);
+int termo       (int palavra[], int *pos);
+int fator       (int palavra[], int *pos);
+int variavel    (int palavra[], int *pos);
 
 //  Numeros e Identificadores
-int bool    (char palavra[], int *pos);
-int num     (char palavra[], int *pos);
-int ident   (char palavra[], int *pos);
+int bool    (int palavra[], int *pos);
+int num     (int palavra[], int *pos);
+int ident   (int palavra[], int *pos);
 
 //  Implementação das Funções =======================================
-// !! PRECISA VERIFICAR COMO REALIZAR A REPETIÇÃO DA CADEIA -> qnd o não-terminal aparece entre chaves {}
 // <programa>::= { <declarações de funções> } 'semic' <identificador> <bloco>
-int programa(char palavra[], int *pos) 
+int programa(int palavra[], int *pos) 
 {
-    if( decl_funcoes(palavra, pos)   &&
-        match(6, palavra, pos)       &&
-        ident(palavra, pos)          &&
-        bloco(palavra, pos))
-        return (1);
+    if ()
     return (0);
 }
 
 // <bloco>::= '{' [<parte declarações de variáveis] <comando composto> '}'
-int bloco(char palavra[], int *pos)
+int bloco(int palavra[], int *pos)
 {
     if(match(17, palavra, pos))  // {
     {
@@ -97,7 +92,7 @@ int bloco(char palavra[], int *pos)
 }
 
 // <p declarações de variáveis> ::= ('int'|'bool') <lista de identificadores> ';'
-int d_variavel_i(char palavra[], int *pos)
+int d_variavel_i(int palavra[], int *pos)
 {
     if((match(4, palavra, pos) || match(3, palavra, pos)) &&
         lista_id(palavra, pos) && match(16, palavra, pos))
@@ -106,7 +101,7 @@ int d_variavel_i(char palavra[], int *pos)
 }
 
 // <lista de id> ::= <id>{','<identificador>}
-int lista_id(char palavra[], int *pos) 
+int lista_id(int palavra[], int *pos) 
 {
     if( ident(palavra, pos)     &&
         match(15, palavra, pos) &&
@@ -116,14 +111,14 @@ int lista_id(char palavra[], int *pos)
 }
 
 // <decl funcoes> ::= {<declara função>}
-int decl_funcoes(char palavra[], int *pos)
+int decl_funcoes(int palavra[], int *pos)
 {
     return (0);
 }
 
 // <decl funcao> ::= 'void'<identificador> '('[<parâmetro formal>]')' <bloco>
 // TÁ ERRADO ISSO AQ
-int declara_func(char palavra[], int *pos)
+int declara_func(int palavra[], int *pos)
 {
     if (match(5, palavra, pos) &&
         ident(palavra, pos)    &&
@@ -140,7 +135,7 @@ int declara_func(char palavra[], int *pos)
 //  Main ============================================================
 int main(int argc, char const *argv[])
 {
-    char palavra[] = "";
+    int palavra[] = "";
     int pos = 0;
 
     lookahead = palavra[pos];
