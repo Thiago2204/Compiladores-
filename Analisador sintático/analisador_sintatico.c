@@ -15,27 +15,13 @@ int    lookahead;
 int    match(int t, int palavra[], int *pos);
 void   erro (void);
 
-int  match(int t, char palavra[], int *pos){
-	if (lookahead == t){
-		lookahead= palavra[++(*pos)];
-		return(1);
-	}
-	return(0);
-}
-
-void trataErro(){
-	printf("\n\nERRO DE SINTAXE\n\n");
-	/* IMPORTANTE:  Faca um tratamento melhor !!!
-}
-*/
-
 //  Protótipos Regras da Gramática ==================================
 int programa(int palavra[], int *pos); //(1)
 int bloco (int palavra[], int *pos); //(2)
 
 //  Declarações
-int d_variavel_i(int palavra[], int *pos); //(3)
-int d_variavel  (int palavra[], int *pos); //(4)
+int d_variavel  (int palavra[], int *pos); //(3)
+int d_variavel_i(int palavra[], int *pos); //(4)
 int lista_id    (int palavra[], int *pos); //(5)
 int decl_funcoes(int palavra[], int *pos); //(6)
 int declara_func(int palavra[], int *pos); //(7)
@@ -89,7 +75,13 @@ int bloco(int palavra[], int *pos)
 }
 
 //  == DECLARAÇÕES ==
-// (3) <p declarações de variáveis> ::= ('int'|'bool') <lista de identificadores> ';'
+// (3)
+int d_variavel(int palavra[], int *pos)
+{
+  return (0);
+}
+
+// (4) <p declarações de variáveis> ::= ('int'|'bool') <lista de identificadores> ';'
 int d_variavel_i(int palavra[], int *pos)
 {
     if((match(4, palavra, pos) || match(3, palavra, pos)) &&
@@ -133,6 +125,10 @@ int declara_func(int palavra[], int *pos)
 // (8)
 int para_formal(int palavra[], int *pos)
 {
+  if ((match(4, palavra, pos) ||
+      (match(3, palavra, pos))) &&
+      ident(palavra, pos))
+      return (1);
   return (0);
 }
 
@@ -143,15 +139,89 @@ int comando_comp(int palavra[], int *pos)
   return (0);
 }
 
+// (11)
+int atribuicao(int palavra[], int *pos)
+{
+  if(variavel(palavra, pos) &&
+     match(24, palavra, pos) &&
+     expressao(palavra, pos))
+     return (1);
+  return (0);
+}
+
+// (12)
+int chamada_proc(int palavra[], int *pos)
+{
+  if(match(8, palavra, pos) &&
+     ident(palavra, pos) &&
+     match(13, palavra, pos))
+     if (parametro(palavra, pos) && match(14, palavra, pos))
+         return (1);
+     else if (ident(palavra, pos) && match(14, palavra, pos))
+         return (1);
+  return (0);
+}
+
+// (13)
+int parametro(int palavra[], int *pos)
+{
+  if(ident(palavra, pos) ||
+     num(palavra, pos) ||
+     bool(palavra, pos) ||
+     //VAZIO(palavra, pos)
+     )
+     return (1);
+  return (0);
+}
+
+// (14)
+int comando_cond(int palavra[], int *pos)
+{
+  return (0);
+}
+
+// (15)
+int comando_repe(int palavra[], int *pos)
+{
+  if(match(12, palavra, pos) &&
+     match(17, palavra, pos) &&
+     comando_comp(palavra, pos) &&
+     match(18, palavra, pos) &&
+     match(11, palavra, pos) &&
+     match(13, palavra, pos) &&
+     expressao(palavra, pos) &&
+     match(14, palavra, pos))
+     return (1);
+  return (0);
+}
+
 // == EXPRESSÕES ==
+
+// (17)
+int relacao(int palavra[], int *pos)
+{
+  return (0);
+}
+
+// (21)
+int variavel(int palavra[], int *pos)
+{
+  if (ident(palavra, pos)) return (1);
+  return (0);
+}
 
 // == NÚMEROS E IDENTIFICADORES ==
 // (22)
 int bool(int palavra[], int *pos)
 {
-  if (match(1, palavra, pos)) return (1);
-  else if (match(0, palavra, pos)) return (1);
-  else return(0);
+  if ((match(1, palavra, pos)) || (match(0, palavra, pos))) return (1);
+  return(0);
+}
+
+// (23)
+int num(int palavra[], int *pos)
+{
+  return (0);
 }
 
 // (24) 
