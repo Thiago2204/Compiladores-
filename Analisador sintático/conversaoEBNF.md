@@ -7,14 +7,14 @@ Não tentei fazer 18)
 
 # Sintaxe
 
-1) \<programa> → \<declaração de funções> \<programa> `semic` \<identificador> \<bloco> | `semic` \<identificador> \<bloco>
+1) \<programa> → \<declaração de funções> `semic` \<identificador> \<bloco> | `semic` \<identificador> \<bloco>
 2) \<bloco> → `{` \<parte declarações de variáveis> \<comando composto> `}` | `{` \<comando composto> `}`
 
 # Declarações
   
 3) \<parte declarações de variáveis> → \<declaração de variáveis> \<declaração de variáveis> \<parte declaração de variáveis> | \<declaração de variáveis>
 4) \<declaração de variáveis> → `int` \<lista de identificadores> `;` | `bool` \<lista de identificadores> `;`
-5) \<lista de identificadores> → \<identificador> `,` \<identificador> \<lista de identificadores> | \<identificador>
+5) \<lista de identificadores> → \<identificador> `,` \<lista de identificadores> | \<identificador>
 6) \<declarações de funções> → \<declara função> \<declarações de funções> | ε
 7) \<declara função> → `void` \<identificador> `(` \<parâmetro formal> `)` \<bloco> | `void` \<identificador> `(` `)` \<bloco>
 8) \<parâmetro formal> → `int` \<identificador> | `bool` \<identificador>
