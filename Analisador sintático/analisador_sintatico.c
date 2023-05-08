@@ -78,6 +78,11 @@ int bloco(int palavra[], int *pos)
 // (3)
 int d_variavel(int palavra[], int *pos)
 {
+  if (d_variavel_i(palavra, pos) &&
+      d_variavel_i(palavra, pos) &&
+      d_variavel(palavra, pos))
+      return (1);
+  else if (d_variavel_i(palavra, pos)) return (1);
   return (0);
 }
 
@@ -136,6 +141,30 @@ int para_formal(int palavra[], int *pos)
 // (9)
 int comando_comp(int palavra[], int *pos)
 {
+  if (comando(palavra, pos) &&
+     match(16, palavra, pos) &&
+     comando(palavra, pos) &&
+     match(16, palavra, pos) &&
+     comando_comp(palavra, pos))
+     return (1);
+  else if (comando(palavra, pos) &&
+     match(16, palavra, pos))
+     return (1);
+  return (0);
+}
+
+// (10)
+int comando(int palavra[], int *pos)
+{
+  if (atribuicao(palavra, pos) ||
+     chamada_proc(palavra, pos) ||
+     comando_cond(palavra, pos) ||
+     comando_repe(palavra, pos) ||
+     (match(7, palavra, pos) &&
+     match(14, palavra, pos) &&
+     ident(palavra, pos) &&
+     match(15, palavra, pos)))
+     return (1);
   return (0);
 }
 
@@ -217,9 +246,9 @@ int comando_repe(int palavra[], int *pos)
 int expressao(int palavra[], int *pos)
 {
   if (expre_sim(palavra, pos) &&
-      relacao(palavra, pos) &&
-      expre_sim(palavra, pos))
-      return (1);
+     relacao(palavra, pos) &&
+     expre_sim(palavra, pos))
+     return (1);
   else if expre_sim(palavra, pos) return (1);
   return (0);
 }
@@ -228,17 +257,17 @@ int expressao(int palavra[], int *pos)
 int relacao(int palavra[], int *pos)
 {
   if (match(24, palavra, pos) &&
-      match(24, palavra, pos))
-      return (1);
+     match(24, palavra, pos))
+     return (1);
   else if(match(28, palavra, pos) &&
-      match(26, palavra, pos))
-      return (1);
+     match(26, palavra, pos))
+     return (1);
   else if(match(28, palavra, pos) &&
-      match(24, palavra, pos))
-      return (1);
+     match(24, palavra, pos))
+     return (1);
   else if(match(26, palavra, pos) &&
-      match(24, palavra, pos))
-      return(1);
+     match(24, palavra, pos))
+     return(1);
   else if(match(24, palavra, pos)) return (1);
   else if(match(26, palavra, pos)) return (1);
   return (0);
@@ -253,12 +282,30 @@ int expre_sim(int palavra[], int *pos)
 // (19)
 int termo(int palavra[], int *pos)
 {
+  if (fator(palavra, pos) &&
+     match(22, palavra, pos) &&
+     fator(palavra, pos) &&
+     termo(palavra, pos))
+     return (1);
+  else if(fator(palavra, pos) &&
+     match(23, palavra, pos) &&
+     fator(palavra, pos) &&
+     termo(palavra, pos))
+     return (1);
+  else if(fator(palavra, pos)) return (1);
   return (0);
 }
 
 // (20)
 int fator(int palavra[], int *pos)
 {
+  if (variavel(palavra, pos) ||
+     num(palavra, pos) ||
+     bool(palavra, pos) ||
+     (match(13, palavra, pos) &&
+     expre_sim(palavra, pos) &&
+     match(14, palavra, pos)))
+     return (1);
   return (0);
 }
 
