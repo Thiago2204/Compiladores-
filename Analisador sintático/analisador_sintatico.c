@@ -185,10 +185,10 @@ int chamada_proc(int palavra[], int *pos)
   if(match(8, palavra, pos) &&
      ident(palavra, pos) &&
      match(13, palavra, pos))
-     if (parametro(palavra, pos) && match(14, palavra, pos))
-        return (1);
-     else if (ident(palavra, pos) && match(14, palavra, pos))
-        return (1);
+        if (parametro(palavra, pos) && match(14, palavra, pos))
+            return (1);
+        else if (ident(palavra, pos) && match(14, palavra, pos))
+            return (1);
   return (0);
 }
 
@@ -224,16 +224,16 @@ int comando_cond(int palavra[], int *pos)
 // (15)
 int comando_repe(int palavra[], int *pos)
 {
-  if (match(12, palavra, pos) &&
-     match(17, palavra, pos) &&
-     comando_comp(palavra, pos) &&
-     match(18, palavra, pos) &&
-     match(11, palavra, pos) &&
-     match(13, palavra, pos) &&
-     expressao(palavra, pos) &&
-     match(14, palavra, pos))
-     return (1);
-  return (0);
+    if (match(12, palavra, pos) &&
+       match(17, palavra, pos) &&
+       comando_comp(palavra, pos) &&
+       match(18, palavra, pos) &&
+       match(11, palavra, pos) &&
+       match(13, palavra, pos) &&
+       expressao(palavra, pos) &&
+       match(14, palavra, pos))
+       return (1);
+    return (0);
 }
 
 // == EXPRESSÕES ==
@@ -252,84 +252,94 @@ int expressao(int palavra[], int *pos)
 // (17)
 int relacao(int palavra[], int *pos)
 {
-  if (match(24, palavra, pos) &&
-     match(24, palavra, pos))
-     return (1);
-  else if(match(28, palavra, pos) &&
-     match(26, palavra, pos))
-     return (1);
-  else if(match(28, palavra, pos) &&
-     match(24, palavra, pos))
-     return (1);
-  else if(match(26, palavra, pos) &&
-     match(24, palavra, pos))
-     return(1);
-  else if(match(24, palavra, pos)) return (1);
-  else if(match(26, palavra, pos)) return (1);
-  return (0);
+    if (match(24, palavra, pos) &&
+       match(24, palavra, pos))
+       return (1);
+    else if(match(28, palavra, pos) &&
+       match(26, palavra, pos))
+       return (1);
+    else if(match(28, palavra, pos) &&
+       match(24, palavra, pos))
+       return (1);
+    else if(match(26, palavra, pos) &&
+       match(24, palavra, pos))
+       return(1);
+    else if(match(24, palavra, pos)) return (1);
+    else if(match(26, palavra, pos)) return (1);
+    return (0);
 }
 
 // (18)
 int expre_sim(int palavra[], int *pos)
 {
-  return (0);
+    if (match(20, palavra, pos) && termo(palavra, pos))
+        return (1);
+    else if (match(21, palavra, pos) && termo(palavra, pos))
+        return(1);
+    else if (expre_sim(palavra, pos))
+        return (1);
+    else if (termo(palavra, pos))
+        return (1);    
+    return (0);
 }
 
 // (19)
 int termo(int palavra[], int *pos)
 {
-  if (fator(palavra, pos) &&
-     match(22, palavra, pos) &&
-     fator(palavra, pos) &&
-     termo(palavra, pos))
-     return (1);
-  else if(fator(palavra, pos) &&
-     match(23, palavra, pos) &&
-     fator(palavra, pos) &&
-     termo(palavra, pos))
-     return (1);
-  else if(fator(palavra, pos)) return (1);
-  return (0);
+    if (fator(palavra, pos) &&
+       match(22, palavra, pos) &&
+       fator(palavra, pos) &&
+       termo(palavra, pos))
+       return (1);
+    else if(fator(palavra, pos) &&
+       match(23, palavra, pos) &&
+       fator(palavra, pos) &&
+       termo(palavra, pos))
+       return (1);
+    else if(fator(palavra, pos)) return (1);
+    return (0);
 }
 
 // (20)
 int fator(int palavra[], int *pos)
 {
-  if (variavel(palavra, pos) ||
-     num(palavra, pos) ||
-     bool(palavra, pos) ||
-     (match(13, palavra, pos) &&
-     expre_sim(palavra, pos) &&
-     match(14, palavra, pos)))
-     return (1);
+    if (variavel(palavra, pos) ||
+        num(palavra, pos) ||
+        bool(palavra, pos) ||
+        (match(13, palavra, pos) &&
+        expre_sim(palavra, pos) &&
+        match(14, palavra, pos)))
+        return (1);
   return (0);
 }
 
 // (21)
 int variavel(int palavra[], int *pos)
 {
-  if (ident(palavra, pos)) return (1);
-  return (0);
+    if (ident(palavra, pos)) return (1);
+    return (0);
 }
 
 // == NÚMEROS E IDENTIFICADORES ==
 // (22)
 int booleano(int palavra[], int *pos)
 {
-  if ((match(1, palavra, pos)) || (match(0, palavra, pos))) return (1);
-  return(0);
+    if ((match(1, palavra, pos)) || (match(0, palavra, pos))) return (1);
+    return(0);
 }
 
 // (23)
 int num(int palavra[], int *pos)
 {
-  return (0);
+    if (match(31, palavra, pos)) return (1);
+    return (0);
 }
 
 // (24) 
 int ident(int palavra[], int *pos)
 {
-  return (0);
+    if (match(30, palavra, pos)) return (1);
+    return (0);
 }
 
 //  Main ============================================================

@@ -33,7 +33,7 @@ Não tentei fazer 18)
   
 16) \<expressão> → \<expressão simples> \<relação> \<expressão simples> | \<expressão simples>
 17) \<relação> → `==` | `<>` | `<` | `<=` | `>=` | `>`
-18) \<expressão simples> →
+18) \<expressão simples> → \<termo> | `+` \<termo> | `-` \<termo> | \<expressão simples>
 19) \<termo> → \<fator> `*` \<fator> \<termo> | \<fator> `/` \<fator> \<termo> | \<fator>
 20) \<fator> → \<variavel> | \<número> | \<bool> | `(` \<expressão simples> `)`
 21) \<variável> → \<identificador>
