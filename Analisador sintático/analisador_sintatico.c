@@ -149,7 +149,7 @@ int para_formal(int palavra[], int *pos)
 // (9) <comando composto> ::= <comando>';' {<comando> ;}
 int comando_comp(int palavra[], int *pos)
 {
-    if (comando(palavra, pos) && match(palavra, pos)) return (1);
+    if (comando(palavra, pos) && match(16, palavra, pos)) return (1);
     else if (comando_comp(palavra, pos)) return (1);
     return (0);
 }
