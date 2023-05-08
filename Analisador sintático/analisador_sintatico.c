@@ -45,7 +45,7 @@ int fator       (int palavra[], int *pos); //(20)
 int variavel    (int palavra[], int *pos); //(21)
 
 //  Numeros e Identificadores
-int         (int palavra[], int *pos); //(22)
+int booleano(int palavra[], int *pos); //(22)
 int num     (int palavra[], int *pos); //(23)
 int ident   (int palavra[], int *pos); //(24)
 
@@ -167,6 +167,7 @@ int comando(int palavra[], int *pos)
         comando_repe(palavra, pos)  ||
         (match(7, palavra, pos) && match(13, palavra, pos) && ident(palavra, pos) && match(14, palavra, pos)))
         return(1);
+    printf("Estou na comando! -> P: %d", palavra[*pos]); return(0);
 }
 
 // (11) <atribuicao> ::= <variavel> = <expressao>
@@ -305,7 +306,7 @@ int fator(int palavra[], int *pos)
 {
     if (variavel(palavra, pos) ||
         num(palavra, pos) ||
-        bool(palavra, pos) ||
+        booleano(palavra, pos) ||
         (match(13, palavra, pos) &&
         expre_sim(palavra, pos) &&
         match(14, palavra, pos)))
@@ -342,13 +343,30 @@ int ident(int palavra[], int *pos)
     return (0);
 }
 
+//  MATCH ===========================================================
+int match(int t, int palavra[], int* pos)
+{
+    if (lookahead == t)
+    {
+        printf("Lookahead: %d\nPalavra na posição %d: %d\n", lookahead, *pos, palavra[*pos]);
+        lookahead = palavra[++(*pos)];
+        return (1);
+    }
+    return (0);
+}
+
 //  Main ============================================================
 int main(int argc, char const *argv[])
 {
-    int palavra[] = "";
+    int palavra[] = {6, 30, 17, 7, 13, 30, 14, 16, 18};
     int pos = 0;
 
     lookahead = palavra[pos];
-
+    if(programa(palavra, &pos))
+        printf("shbow de bola");
+    else
+        printf("deu ruim :C");
+    system("PAUSE");
     return 0;
 }
+ 
