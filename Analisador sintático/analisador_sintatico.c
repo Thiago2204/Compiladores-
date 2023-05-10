@@ -1,8 +1,10 @@
 /*
     Analisador Sintático
     *** Feito por *** (quem for abrindo o código, põe o nome e TIA):
+    
     Amanda Laís Xavier Fontes - 31949436
     Ryan Marco Andrade dos Santos - 42080223
+    Thiago Henrique Quadrado Estacio - 42012740
 */
 // !! ENCONTRAR UMA FORMA DE REPRESENTAR O VAZIO
 //  Bibliotecas  ====================================================
@@ -342,6 +344,19 @@ int ident(int palavra[], int *pos)
     if (match(30, palavra, pos)) return (1);
     return (0);
 }
+// (Estado vazio)
+
+bool estado_vazio(const char* code) {
+    // verificar se e um estado vazio
+    
+    if (code[0] == '\0') {
+    return (1);  
+        
+    // código vazio sintaxe valida
+    }
+
+    return (0); 
+}
 
 //  MATCH ===========================================================
 int match(int t, int palavra[], int* pos)
@@ -368,5 +383,7 @@ int main(int argc, char const *argv[])
         printf("deu ruim :C");
     system("PAUSE");
     return 0;
+}
+  
 }
  
