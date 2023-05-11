@@ -23,7 +23,7 @@ int bloco (int palavra[], int *pos); //(2)
 int d_variaveis  (int palavra[], int *pos); //(3)
 int decl_variavel(int palavra[], int *pos); //(4)
 int lista_id    (int palavra[], int *pos); //(5)
-int decl_funcoes(int palavra[], int *pos); //(6)
+int decl_funcoes(int palavra[], int *pos); //(6) x
 int declara_func(int palavra[], int *pos); //(7)
 int para_formal (int palavra[], int *pos); //(8)
 
@@ -32,7 +32,7 @@ int comando_comp(int palavra[], int *pos); //(9)
 int comando     (int palavra[], int *pos); //(10)
 int atribuicao  (int palavra[], int *pos); //(11)
 int chamada_proc(int palavra[], int *pos); //(12)
-int parametro   (int palavra[], int *pos); //(13)
+int parametro   (int palavra[], int *pos); //(13) x
 int comando_cond(int palavra[], int *pos); //(14)
 int comando_repe(int palavra[], int *pos); //(15)
 
@@ -112,11 +112,13 @@ int lista_id(int palavra[], int *pos)
 // (6) <decl funcoes> ::= {<declara função>}
 int decl_funcoes(int palavra[], int *pos)
 {
-    if( declara_func(palavra, pos)   &&
-        decl_funcoes(palavra, pos))
-        return (1);
+    if (lookahead == 5)
+        if( declara_func(palavra, pos)   &&
+            decl_funcoes(palavra, pos))
+            return (1);
+        else return (0); 
     return(1);
-}
+}   
 
 // (7) <decl funcao> ::= 'void'<identificador> '('[<parâmetro formal>]')' <bloco>
 int declara_func(int palavra[], int *pos)
@@ -196,10 +198,14 @@ int chamada_proc(int palavra[], int *pos)
 // (13) <parâmetro> ::= [ ( <identificador> | <número> | <booleano> ) ]
 int parametro(int palavra[], int *pos)
 {
-    if       (ident(palavra, pos))    return (1);
-    else if  (num(palavra, pos))      return (1);
-    else if  (booleano(palavra, pos)) return (1);
-    else return (1);
+    if (lookahead == 30 || lookahead == 31 || lookahead == 1 || lookahead == 0) 
+    { 
+        if       (ident(palavra, pos))    return (1);
+        else if  (num(palavra, pos))      return (1);
+        else if  (booleano(palavra, pos)) return (1);
+        else return (0);
+    }
+    else return(0); 
 }
 
 // (14) <comando_cond> ::= 'if' '('<expressão>')''{'<comando_comp>'}'['else' '{'<comando_comp>'}']
