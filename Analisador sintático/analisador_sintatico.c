@@ -1,14 +1,5 @@
-/*  Analisador Sintático
-    *** Feito por ***:
-    Amanda Laís Xavier Fontes - 31949436
-    Ryan Marco Andrade dos Santos - 42080223
-    Thiago Henrique Quadrado Estacio - 43012740
-		Augusto Rassi Scrideli - 42023092         */
-// !! ENCONTRAR UMA FORMA DE REPRESENTAR O VAZIO
-//  Bibliotecas  ====================================================
 #include <stdio.h>
 #include <stdlib.h>
-#include "analisador_lexico.h"
 
 //  Protótipos das Funções e Declarações ============================
 int    lookahead;
@@ -64,10 +55,14 @@ int programa(int palavra[], int *pos)
 // (2) <bloco>::= '{' [<parte declarações de variáveis] <comando composto> '}'
 int bloco(int palavra[], int *pos)
 {
-    if (match(17, palavra, pos) && d_variaveis(palavra, pos) && comando_comp(palavra, pos) && match(18, palavra, pos))
-        return (1);
-    else if (match(17, palavra, pos) && comando_comp(palavra, pos) && match(18, palavra, pos))
-        return (1);
+    if (match(17, palavra, pos))
+    {
+        if (d_variaveis(palavra, pos) && comando_comp(palavra, pos) && match(18, palavra, pos))
+            return (1);
+        else if (comando_comp(palavra, pos) && match(18, palavra, pos))
+            return (1);
+    }
+    
     return (0);
 }
 
@@ -377,9 +372,8 @@ void trataErro(){
 //  Main ============================================================
 int main(int argc, char const *argv[])
 {
-    int lex = analisa_lexico(argc, *argv);
     //FILE* saida = fopen("saidasintatico.txt", wa);
-    FILE* entrada = fopen("saidalexico.txt", "r");
+    //FILE* entrada = fopen("saidalexico.txt", "r");
     int palavra[] = {6, 30, 17, 7, 13, 30, 14, 16, 18};
     int pos = 0;
     lookahead = palavra[pos];
@@ -387,7 +381,7 @@ int main(int argc, char const *argv[])
         printf("shbow de bola");
     else
         printf("deu ruim :C");
-    fclose(entrada);
+    //fclose(entrada);
     system("PAUSE");
     return 0;
 }
