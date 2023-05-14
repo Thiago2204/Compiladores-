@@ -483,7 +483,7 @@ int analisa_lexico(int argc, char* argv[]) {
                     token = scanner(&line, &attr);
                     fprintf(output, "<%d,%s>\n", token, attr);
                     /* Para a pr�xima entrega informar onde est� o erro */
-                    if (token == _ERROR_) { printf("Erro l�xico !!"); return 1; }
+                    if (token == _ERROR_) { printf("Erro lexico !!"); return 1; }
                 }
                 else line++;
             }
