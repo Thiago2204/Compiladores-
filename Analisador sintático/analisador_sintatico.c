@@ -1,14 +1,14 @@
-/*
-    Analisador Sintático
-    *** Feito por *** (quem for abrindo o código, põe o nome e TIA):
+/*  Analisador Sintático
+    *** Feito por ***:
     Amanda Laís Xavier Fontes - 31949436
     Ryan Marco Andrade dos Santos - 42080223
-*/
+    Thiago Henrique Quadrado Estacio - 43012740
+		Augusto Rassi Scrideli - 42023092         */
 // !! ENCONTRAR UMA FORMA DE REPRESENTAR O VAZIO
 //  Bibliotecas  ====================================================
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "analisador_lexico.h"
 
 //  Protótipos das Funções e Declarações ============================
 int    lookahead;
@@ -90,7 +90,7 @@ int decl_variavel(int palavra[], int *pos)
         lista_id(palavra, pos)  &&
         match(16, palavra, pos)     //;
         ) return (1);
-    else 
+    else
     if (match(3, palavra, pos)  &&  // booleano
         lista_id(palavra, pos)  &&
         match(16, palavra, pos)     //;
@@ -116,9 +116,9 @@ int decl_funcoes(int palavra[], int *pos)
         if( declara_func(palavra, pos)   &&
             decl_funcoes(palavra, pos))
             return (1);
-        else return (0); 
+        else return (0);
     return(1);
-}   
+}
 
 // (7) <decl funcao> ::= 'void'<identificador> '('[<parâmetro formal>]')' <bloco>
 int declara_func(int palavra[], int *pos)
@@ -132,7 +132,7 @@ int declara_func(int palavra[], int *pos)
         return (1);
     if (match(5, palavra, pos)  &&
         ident(palavra, pos)     &&
-        match(13, palavra, pos) && 
+        match(13, palavra, pos) &&
         match(14, palavra, pos) &&
         bloco(palavra, pos))
         return(1);
@@ -198,14 +198,14 @@ int chamada_proc(int palavra[], int *pos)
 // (13) <parâmetro> ::= [ ( <identificador> | <número> | <booleano> ) ]
 int parametro(int palavra[], int *pos)
 {
-    if (lookahead == 30 || lookahead == 31 || lookahead == 1 || lookahead == 0) 
-    { 
+    if (lookahead == 30 || lookahead == 31 || lookahead == 1 || lookahead == 0)
+    {
         if       (ident(palavra, pos))    return (1);
         else if  (num(palavra, pos))      return (1);
         else if  (booleano(palavra, pos)) return (1);
         else return (0);
     }
-    else return(0); 
+    else return(0);
 }
 
 // (14) <comando_cond> ::= 'if' '('<expressão>')''{'<comando_comp>'}'['else' '{'<comando_comp>'}']
@@ -286,7 +286,7 @@ int expre_sim(int palavra[], int *pos)
     else if (expre_sim(palavra, pos))
         return (1);
     else if (termo(palavra, pos))
-        return (1);    
+        return (1);
     return (0);
 }
 
@@ -342,7 +342,7 @@ int num(int palavra[], int *pos)
     return (0);
 }
 
-// (24) 
+// (24)
 int ident(int palavra[], int *pos)
 {
     if (match(30, palavra, pos)) return (1);
@@ -361,18 +361,33 @@ int match(int t, int palavra[], int* pos)
     return (0);
 }
 
+//  TRATAMENTO DE ERRO ===============
+void trataErro(){
+    printf("\n\nERRO DE SINTAXE\n\n");
+  // pega linha do arquivo aberto em que deu erro e printa que erro encontrado na linha X
+  // em certos casos mostrar um [expected algo] ou outra sugestoes
+  // void erro(int linha)
+// {
+//     printf("Erro na linha %d: sintaxe inválida \n", linha);
+// }
+
+	/* IMPORTANTE:  Faca um tratamento melhor !!! */
+}
+
 //  Main ============================================================
 int main(int argc, char const *argv[])
 {
+    int lex = analisa_lexico(argc, *argv);
+    //FILE* saida = fopen("saidasintatico.txt", wa);
+    FILE* entrada = fopen("saidalexico.txt", "r");
     int palavra[] = {6, 30, 17, 7, 13, 30, 14, 16, 18};
     int pos = 0;
-
     lookahead = palavra[pos];
     if(programa(palavra, &pos))
         printf("shbow de bola");
     else
         printf("deu ruim :C");
+    fclose(entrada);
     system("PAUSE");
     return 0;
 }
- 
