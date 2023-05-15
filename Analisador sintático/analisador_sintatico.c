@@ -14,7 +14,7 @@ int bloco (int palavra[], int linha[], int* pos); //(2)
 int d_variaveis  (int palavra[], int linha[], int* pos); //(3)
 int decl_variavel(int palavra[], int linha[], int* pos); //(4)
 int lista_id    (int palavra[], int linha[], int* pos); //(5)
-int decl_funcoes(int palavra[], int linha[], int* pos); //(6) x
+int decl_funcoes(int palavra[], int linha[], int* pos); //(6)
 int declara_func(int palavra[], int linha[], int* pos); //(7)
 int para_formal (int palavra[], int linha[], int* pos); //(8)
 
@@ -23,7 +23,7 @@ int comando_comp(int palavra[], int linha[], int* pos); //(9)
 int comando     (int palavra[], int linha[], int* pos); //(10)
 int atribuicao  (int palavra[], int linha[], int* pos); //(11)
 int chamada_proc(int palavra[], int linha[], int* pos); //(12)
-int parametro   (int palavra[], int linha[], int* pos); //(13) x
+int parametro   (int palavra[], int linha[], int* pos); //(13)
 int comando_cond(int palavra[], int linha[], int* pos); //(14)
 int comando_repe(int palavra[], int linha[], int* pos); //(15)
 
