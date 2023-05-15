@@ -51,7 +51,7 @@
 
 
 // Protótipo das funções ======================================================
-int     scanner(char** palavra, char** atributo);
+int     scanner(char** palavra, char** atributo, FILE* input)
 void    token_output(char file_name[], int token[]);
 
 // Implementação ==============================================================
