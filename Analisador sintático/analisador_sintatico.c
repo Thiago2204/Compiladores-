@@ -397,7 +397,7 @@ int main(int argc, char const *argv[])
     if(programa(tokens,linha,&pos))
         printf("shbow de bola");
     else
-        printf("deu ruim :C");
+        printf("deu ruim :C na linha: %d", linha[pos]);
 
     fclose(input);
     system("PAUSE");
