@@ -369,18 +369,20 @@ void trataErro(){
 	/* IMPORTANTE:  Faca um tratamento melhor !!! */
 }
 
-void get_tokens(FILE* input, int* tokens, int* linha)
+int get_tokens(FILE* input, int* tokens, int* linha)
 {
     int size = 1;
     char line[100];
     while(!feof(input))
     {
         fgets(line, sizeof(line), input);
-        tokens = (int*) realloc (tokens, sizeof(int) * size);
-        linha  = (int*) realloc (linha , sizeof(int) * size);
-        sscanf(line, "%d,%d", &tokens[size-1], &linha[size-1]);
+        tokens = realloc (tokens, sizeof(int) * size);
+        linha  = realloc (linha , sizeof(int) * size);
+        sscanf(line, " %d,%d\n", &tokens[size-1], &linha[size-1]);
         size++;
     }
+    for(int i = 0; i < size; i++) printf("%d %d\n", tokens[i], linha[i]);
+    return size;
 }
 
 //  Main ============================================================
@@ -390,14 +392,18 @@ int main(int argc, char const *argv[])
     FILE* input = fopen("tokens.txt", "r");
     int* tokens = (int*) malloc (sizeof(int));
     int* linha  = (int*) malloc (sizeof(int));
-    get_tokens(input, tokens, linha);
+    int size = 1;
+    char line[100];
     int pos = 0;
+
+    while(!feof(input)) { fgets(line, sizeof(line), input); tokens = realloc (tokens, sizeof(int) * size); linha  = realloc (linha , sizeof(int) * size); sscanf(line, " %d,%d\n", &tokens[size-1], &linha[size-1]); size++; }
+    
     lookahead = tokens[pos];
 
     if(programa(tokens,linha,&pos))
-        printf("shbow de bola");
+        printf("show de bola");
     else
-        printf("deu ruim :C na linha: %d", linha[pos]);
+        printf("deu ruim :C na linha: %d\n", linha[pos]);
 
     fclose(input);
     system("PAUSE");
