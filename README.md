@@ -7,7 +7,7 @@
 - [Analisador léxico.](https://github.com/Thiago2204/Compiladores-/tree/main/Analisador%20léxico)
 - - Deadline: 31/MAR/2023
 - [Analisador sintático.](https://github.com/Thiago2204/Compiladores-/tree/main/Analisador%20sintático)
-- - Deadline: 05/MAI/2023
+- - Deadline: 15/MAI/2023
 - [Analisador semântico.](https://github.com/Thiago2204/Compiladores-/tree/main/Analisador%20semântico)
 - - Deadline: 26/MAI/2023
 
