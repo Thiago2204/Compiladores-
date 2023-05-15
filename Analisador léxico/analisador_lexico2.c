@@ -112,6 +112,8 @@ int scanner(char** palavra, char** atributo)
         case '\t': 
             *(*palavra)++;
             goto q0;
+	case '\n': 
+            return -1;
 
         default:
             goto poco;
@@ -486,7 +488,7 @@ int main(int argc, char* argv[]) {
                 {
                     attr = "NONE";
                     token = scanner(&line, &attr);
-                    fprintf(output, "<%d,%s>\n", token, attr);
+                    if (token != -1) { fprintf(output, "<%d,%s>\n", token, attr); }
                     if (token == _ERROR_) { printf("Erro léxico !!"); return 1; }
                 }
                 else line++;
