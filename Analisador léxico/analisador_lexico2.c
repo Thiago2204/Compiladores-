@@ -106,6 +106,13 @@ int scanner(char** palavra, char** atributo)
 
         case '_': goto q48;
 
+        case ' ': 
+            *(*palavra)++;
+            goto q0;
+        case '\t': 
+            *(*palavra)++;
+            goto q0;
+
         default:
             goto poco;
         }
@@ -467,8 +474,6 @@ int main(int argc, char* argv[]) {
     char* attr;
     int token;
 
-    // ESSA É UMA SOLUÇÃO QUE PEGA LINHA A LINHA PARA FAZER A LEITURA DO CÓDIGO FONTE
-    // UMA OUTRA POSSIBILIDADE SERIA LER CARACTERE POR CARACTERE
     if (input == NULL) return 1; 
 
     while(!feof(input))
@@ -482,7 +487,6 @@ int main(int argc, char* argv[]) {
                     attr = "NONE";
                     token = scanner(&line, &attr);
                     fprintf(output, "<%d,%s>\n", token, attr);
-                    /* Para a próxima entrega informar onde está o erro */
                     if (token == _ERROR_) { printf("Erro léxico !!"); return 1; }
                 }
                 else line++;
