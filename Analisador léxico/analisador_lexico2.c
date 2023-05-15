@@ -55,7 +55,7 @@ int     scanner(char** palavra, char** atributo);
 void    token_output(char file_name[], int token[]);
 
 // Implementação ==============================================================
-int scanner(char** palavra, char** atributo)
+int scanner(char** palavra, char** atributo, FILE* input)
 {
     char c;
     int index = 0;
@@ -416,7 +416,7 @@ int scanner(char** palavra, char** atributo)
     // Comentario
 	q2:
 		*(*palavra)++; c = *palavra[0];
-        if (c == '*') goto q3; else goto q2;
+        if (c == '*') goto q3; else if (c == '\n') fgets(*palavra, 100, input); else goto q2;
 	q3:
 		*(*palavra)++; c = *palavra[0];
         if (c == '/') goto q4; else if (c == '*') goto q3; else goto q2;
@@ -487,7 +487,7 @@ int main(int argc, char* argv[]) {
                 if (*line != '\n') 
                 {
                     attr = "NONE";
-                    token = scanner(&line, &attr);
+                    token = scanner(&line, &attr, input);
                     if (token != -1) { fprintf(output, "<%d,%s>\n", token, attr); }
                     if (token == _ERROR_) { printf("Erro léxico !!"); return 1; }
                 }
