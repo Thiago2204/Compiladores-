@@ -171,7 +171,7 @@ int comando(int palavra[], int linha[], int* pos)
 int atribuicao(int palavra[], int linha[], int* pos)
 {
     if (variavel(palavra, linha, pos)  &&
-        match(24, palavra, linha, pos) &&
+        match(19, palavra, linha, pos) &&
         expressao(palavra, linha, pos))
         return (1);
     return (0);
