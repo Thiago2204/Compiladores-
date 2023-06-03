@@ -240,7 +240,7 @@ int comando_repe(int palavra[], int linha[], int* pos)
 
 // == EXPRESSÕES ==
 
-// 16
+// (16) <expressão> ::= <expressão simples> [<relação> <expressão simples>]
 int expressao(int palavra[], int linha[], int* pos)
 {
   if (expre_sim(palavra, linha, pos) &&
@@ -251,7 +251,7 @@ int expressao(int palavra[], int linha[], int* pos)
   return (0);
 }
 
-// (17)
+// (17) <relação> ::= == | <> | < | <= | >= | >
 int relacao(int palavra[], int linha[], int* pos)
 {
     if (match(24, palavra, linha, pos) &&
@@ -271,7 +271,7 @@ int relacao(int palavra[], int linha[], int* pos)
     return (0);
 }
 
-// (18)
+// (18) <expressão simples> ::= [+|-] <termo> {[+|-] <termo>}
 int expre_sim(int palavra[], int linha[], int* pos)
 {
     if (match(20, palavra, linha, pos) && termo(palavra, linha, pos))
@@ -285,7 +285,7 @@ int expre_sim(int palavra[], int linha[], int* pos)
     return (0);
 }
 
-// (19)
+// (19) <termo> ::= <fator> {(*|/) <fator>}
 int termo(int palavra[], int linha[], int* pos)
 {
     if (fator(palavra, linha, pos) &&
@@ -302,7 +302,7 @@ int termo(int palavra[], int linha[], int* pos)
     return (0);
 }
 
-// (20)
+// (20) <fator> ::= <variavel> | <número> | <bool> | ( <expressão simples> )
 int fator(int palavra[], int linha[], int* pos)
 {
     if (variavel(palavra, linha, pos) ||
@@ -315,7 +315,7 @@ int fator(int palavra[], int linha[], int* pos)
   return (0);
 }
 
-// (21)
+// (21) <variável> ::= <identifcador>
 int variavel(int palavra[], int linha[], int* pos)
 {
     if (ident(palavra, linha, pos)) return (1);
@@ -323,21 +323,21 @@ int variavel(int palavra[], int linha[], int* pos)
 }
 
 // == NÚMEROS E IDENTIFICADORES ==
-// (22)
+// (22) <bool> ::= true | false
 int booleano(int palavra[], int linha[], int* pos)
 {
     if ((match(1, palavra, linha, pos)) || (match(0, palavra, linha, pos))) return (1);
     return(0);
 }
 
-// (23)
+// (23) <número> ::= num (token obtido pelo analisador léxico)
 int num(int palavra[], int linha[], int* pos)
 {
     if (match(31, palavra, linha, pos)) return (1);
     return (0);
 }
 
-// (24)
+// (24) <identificador> ::= id (token obtido pelo analisador léxico)
 int ident(int palavra[], int linha[], int* pos)
 {
     if (match(30, palavra, linha, pos)) return (1);
